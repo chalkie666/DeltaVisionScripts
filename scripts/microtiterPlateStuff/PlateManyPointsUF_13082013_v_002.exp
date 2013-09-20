@@ -1,0 +1,147 @@
+# Created by Dan White and Nick Berger
+# 13 Aug 2013,  Buchholz lab, Biotec Zentrum,  Dresden, DE. 
+# Experiment Macro Name: Plate many points time UF hack.
+
+# Copyright (C) 2013 dan white and nick berger
+#  
+# License: GPL v3. 
+#  
+#    This program is free software: you can redistribute it and/or modify 
+#    it under the terms of the GNU General Public License as published by 
+#    the Free Software Foundation, either version 3 of the License, or 
+#    (at your option) any later version. 
+#  
+#    This program is distributed in the hope that it will be useful, 
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of 
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+#    GNU General Public License for more details. 
+#  
+#    You should have received a copy of the GNU General Public License 
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+
+
+# This DeltaVision experiment macro is to work around the problem that we can't do a
+# time series with several panels per well using plate mode.
+# Why not? Because panels use the time dimension to store themselves in DV files!
+# Can't have panels and time in the same experiment :-(
+
+# We will generate a large points list, using Dan's python script
+#     morePoints.py
+# or some other way with hundreds of points, then load that.
+# All points' z position will be 0.00 in points list
+# Since we cant guess z focus position and measuring takes too long:
+# We will not go through and calibrate Ultimate focus for all 999 points,
+# before the experiment, because that is too slow, too many points,
+# and we can do it at the first time point in an experiment using UF and replacepoint cmd. 
+
+# For hardware autofcus at each point,
+# we will use a direct hardware command in this experiment macro file:
+# IC UFIO_MAINTAIN,SetPointID,fTHreshold,iMaxIterations,fIterationThreshold
+# eg. IC UFIO_MAINTAIN,0,0.100,1,0.100 (info from engineering via Leanna F :-)
+# to force the UF to do its job at each point, even though the points
+# have not been calibrated (before the first timepoint is run)
+# Point ID 0 seems to mean just do it wherever the stage is now.
+
+# Usage:
+# 1) Generate massive points list .pts file as required:
+#       Maybe use Dan Whites's morePoints.py python script for that. 
+#	All z positons should be set to 0.00
+# 2) Put plate in microscope, and load your point list file, .pts. 
+# 3) Go to a good point somewhere in the middle of the plate
+#	and set z stage position to zero
+#       so z stage has room to allow UF to move either way)
+#	then focus with manual focus knob on the stand,
+#	using eyepieces or camera as you like. 
+#		NOTE: you dont need to calibrate the hundreds of points,
+#		before the experiment starts, thats the whole point here! 
+# 4) load this macro into the experiment designer. 
+# 5) Change the channels and exposure time etc. manually in the
+#      MAIN IMAGING EXPERIMENT BLOCK macro text, the save it.  
+# 6) Run the experiment. 
+
+# Open image files for Point Visiting
+OPF2 all
+
+# Do a Short-Range UltimateFocus calibration for this plate
+# Plate scan mode uses this command...
+ULTFOCUS Calibrate,0
+
+# We are using a plate, so sometimes we use long range UF commands, not the short range ones.
+# Enable focus maintenance, even though points are NOT Calibrated,
+# using the calibrated look up table (LUT) for this combination of
+# lens, plate and ploychroic
+ULTFOCUS EnableLUT
+
+
+# Time-lapse loop. Change number after DO to number of time points needed.
+FIRST_T
+DO 2
+
+  FIRSTPOINT 
+
+
+  # Point visiting loop.
+  DO PointList
+
+  # Here we can optionally make it do a image based autofocus
+  # for instance, every 5 points. 
+  # Conditional Processing Actions (T=Time Point, P=Visited Point)
+    IF T=all
+      # For internal point visit loop in Periodic Processing
+      IF P=every 5
+        LOGNOTE_CUR_PT Action Note: Performing Autofocus
+        AUTOFOCUS 1
+        # replacepoint updates the z position in the points list
+        # for the currrent point, reducing extra focussing from z = 0.00 later.
+        # More robust and maybre a bit faster? 
+        REPLACEPOINT
+      ENDIF
+    ENDIF
+
+    # Do the manual direct IC hardware command to do ultimate focus,
+    # hardware autofocus for this point. 
+    IC UFIO_MAINTAIN,0,0.100,3,0.100
+
+    # This is the MAIN IMAGING EXPERIMENT BLOCK:
+    # where we set the imaging parameters
+    # might use a CCD command and separate shutter etc commands
+    # or use the fast mode SCANXYZC style all in one command. 
+    FILTERS FITC,FITC,10%
+    ACTSHUT 17
+    CCD 0.050000
+    WRT2
+    FILTERS DAPI,DAPI,5%
+    ACTSHUT 17
+    CCD 0.006702
+    WRT2
+    # Again, replace the point to update the z posiiton for current point. 
+    REPLACEPOINT, PT_NUMBER False
+
+    NEXTPOINT
+  ENDDO
+
+
+
+  # Update all open file headers
+  WRT_HDRS
+
+  # Time Lapse wait. Will wait eg. 30.000 seconds
+  # from the beginning of the current time point
+  TLAPSE 30.000
+  NEXT_T
+ENDDO
+
+# Return to the first point in point visit list
+FIRSTPOINT
+
+# Close image file(s)
+CLF2
+
+# makes the system beep so we knoe its done.
+# I wish we could make it play, like,
+# the stars and stripes or something like that....
+BEEP
+
+#
+#
+
