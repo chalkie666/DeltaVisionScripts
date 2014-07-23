@@ -1,0 +1,58 @@
+# Created by Dan White, modified from DeltaVision Experiment Designer (version: 5.5.1 Release 3)
+# Experiment Macro Name: TestExp2chanTimeInTime.exp
+
+# Open image files for Point Visiting
+OPF2 all
+
+# Time-lapse loop.
+FIRST_T
+DO 33
+
+  FIRSTPOINT
+
+  # inner time series loop, visit all points once per minute for 5 min
+  DO 5
+
+    # Point visiting loop.
+    DO PointList
+
+      # Fast Acquire command.
+      SCANZWT 2,1,2,20,-0.2000,1,-1.0000,2,0,0,2,0.025000,1,0,17,1,1,2,0.025000,1,0,17
+
+      NEXTPOINT
+    # end do points visiting loop
+    ENDDO
+
+    # Time lapse wait. Wait for 5 min (300 s) from beginning of 
+    # the current time point
+    TLAPSE 300.0
+
+    # set next T flag here in inner tim series loop so header info is right.
+    NEXT_T
+
+    # Update all open file headers
+    WRT_HDRS
+
+  # end do inner time series loop
+  ENDDO
+
+
+  # Time Lapse wait. Will wait 1800.000 - 300 = 1500.0 seconds
+  # from the beginning of the current time point. We already waited 300 s
+  TLAPSE 1500.000
+ 
+ENDDO
+
+# Return to the first point in point visit list
+FIRSTPOINT
+
+# Close image file(s) 
+CLF2
+
+# Turn lamps off
+LAMPS_OFF
+
+BEEP
+
+#
+#

@@ -1,0 +1,78 @@
+# Created by DeltaVision Experiment Designer (version: 5.5.1 Release 3)
+# Experiment Macro Name: TestExp5
+
+# Open image files for Point Visiting
+OPF2 all
+
+# Time-lapse loop.
+FIRST_T
+DO 33
+
+  FIRSTPOINT
+
+  # Point visiting loop.
+  DO PointList
+
+    # Fast Acquire command.
+    SCANZWT 2,1,2,20,-0.2000,1,-1.0000,2,0,0,2,0.025000,1,0,17,1,1,2,0.025000,1,0,17
+
+    NEXTPOINT
+  ENDDO
+
+
+  # Update all open file headers
+  WRT_HDRS
+
+  # Time Lapse wait. Will wait 1800.000 seconds
+  # from the beginning of the current time point
+  TLAPSE 1800.000
+  NEXT_T
+ENDDO
+
+# Return to the first point in point visit list
+FIRSTPOINT
+
+# Close image file(s) 
+CLF2
+
+# Turn lamps off
+LAMPS_OFF
+
+BEEP
+
+#
+#
+#KEY Experiment Designer Keys: Don't Modify
+#
+#KEY EXPERIMENT_TYPE STANDARD
+#KEY DO_FAST_ACQUISITION T
+#KEY FAST_TYPE ZWT
+#KEY FAST_SHUTTER_EACH EXPOSURE
+#KEY FAST_READOUT_MODE NORMAL
+#KEY LAMPS_OFF_AT_END T
+#KEY DO_Z_SECTIONING T
+#KEY Z_APPLY_BACKLASH F
+#KEY Z_START_POSITION MIDDLE
+#KEY SECT_SPACING 0.2000
+#KEY NUM_Z_SECTIONS 20
+#KEY SAMPLE_THICKNESS 4.0000
+#KEY CHANNEL 0.025000,GFP,GFP,32%
+#KEY EX_SHUTTERS 2,EX=T,TRANS=F
+#KEY EM_SHUTTERS 1,CCD1=T
+#KEY CHANNEL 0.025000,RFP,RFP,32%
+#KEY EX_SHUTTERS 2,EX=T,TRANS=F
+#KEY EM_SHUTTERS 1,CCD1=T
+#KEY DO_REFERENCE_IMAGE F
+#KEY DO_CELL_TRACK F
+#KEY DO_AUTOFOCUS F
+#KEY DO_ULTIMATEFOCUS F
+#KEY DO_OAI_SCANNING F
+#KEY DO_TIME_LAPSE T
+#KEY NUM_TIME_POINTS 33
+#KEY TIME_LAPSE 0,30,0,0
+#KEY TOTAL_TIME 16,0,0,0
+#KEY DO_POINT_VISITING T
+#KEY POINT_VISIT_LIST all
+#KEY DO_PANEL_COLLECTION F
+#
+#
