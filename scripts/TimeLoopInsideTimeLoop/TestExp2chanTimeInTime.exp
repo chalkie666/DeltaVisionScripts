@@ -23,9 +23,9 @@ DO 33
     # end do points visiting loop
     ENDDO
 
-    # Time lapse wait. Wait for 5 min (300 s) from beginning of 
+    # Time lapse wait. Wait for 1 min (60 s) from beginning of 
     # the current time point
-    TLAPSE 300.0
+    TLAPSE 60.0
 
     # set next T flag here in inner tim series loop so header info is right.
     NEXT_T
@@ -37,9 +37,9 @@ DO 33
   ENDDO
 
 
-  # Time Lapse wait. Will wait 1800.000 - 300 = 1500.0 seconds
-  # from the beginning of the current time point. We already waited 300 s
-  TLAPSE 1500.000
+  # Time Lapse wait. Will wait for 30 min, 1800.0 - 60.0 = 1740.0 seconds
+  # from the beginning of the current time point. We already waited 60 s
+  TLAPSE 1740.000
  
 ENDDO
 
