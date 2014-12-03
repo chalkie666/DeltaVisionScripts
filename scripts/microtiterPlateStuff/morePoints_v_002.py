@@ -5,22 +5,9 @@
   
  morepoints.py 
   
- Copyright (C) 2013 daniel james white 
-  
- License: GPL v3. 
-  
- This program is free software: you can redistribute it and/or modify 
-    it under the terms of the GNU General Public License as published by 
-    the Free Software Foundation, either version 3 of the License, or 
-    (at your option) any later version. 
-  
-    This program is distributed in the hope that it will be useful, 
-    but WITHOUT ANY WARRANTY; without even the implied warranty of 
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-    GNU General Public License for more details. 
-  
-    You should have received a copy of the GNU General Public License 
-    along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+# Copyright (C) 2014 GE Healthcare
+#  
+# License: See LICENSE.txt file
   
 """
 __author__ = "dan white"
@@ -41,7 +28,7 @@ as if to create multiple fields of view per well of a microtiter plate:
   
 1) read x,z,y points into a list of lists 
 2) calculate clusters of points around each read point in eg. a square grid (or something else)
-of user defined n by n dims, and user defined seapration between fields of view.  
+of user defined n by n dims, and user defined separation between fields of view.  
 3) output new points as a softworx format points list, retaining Well ID field
     (not that Well ID seems to get used in filenames,
     maybe there is a way to make softworx do that...?)
