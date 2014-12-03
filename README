@@ -6,7 +6,8 @@ For example, to work around limitations or do things
 a different way than previously unimagined, that the 
 SoftWoRx(r) gui can't yet manage. 
 
-All these scripts are under GPL v3 license. 
+All these scripts are under an open source license.
+See the LICENSE file for dedtails.  
 They come with no warranty or promise of fitness for a cerain purpose. 
 They are just examples illustrating what might be done.
 These are not officially supported by GE Healthcare in any way. 
