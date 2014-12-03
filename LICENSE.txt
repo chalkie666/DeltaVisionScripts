@@ -1,0 +1,26 @@
+Copyright (c) 2014  GE Healthcare
+GE HEALTHCARE
+OPEN METHOD  SOFTWARE END-USER LICENSE AGREEMENT 
+
+IMPORTANT - PLEASE READ CAREFULLY
+THIS IS THE LICENSE AGREEMENT THAT END-USER IS REQUIRED TO ACCEPT BEFORE USING human readable imaging experiment and image data analysis scripts provided by GE Healthcare Life Sciences, INCLUDING ITS SOURCE CODE (“THE SOFTWARE”).  CAREFULLY READ ALL OF THE TERMS AND CONDITIONS OF THIS LICENSE AGREEMENT BEFORE PROCEEDING WITH THE DOWNLOADING AND/OR INSTALLATION OF OR USING THIS SOFTWARE. BY DOWNLOADING AND/OR INSTALLATION OF AND/OR USING THE SOFTWARE END USER AGREES TO BE BOUND BY ALL OF THE TERMS AND CONDITIONS OF THIS LICENSE AGREEMENT.  END-USER IS NOT PERMITTED TO DOWNLOAD AND/OR INSTALL AND/OR USE THIS SOFTWARE UNTIL END-USER HAS AGREED TO BE BOUND BY ALL OF THE TERMS AND CONDITIONS OF THIS LICENSE AGREEMENT.  BY ACCEPTING ALL OF THE TERMS AND CONDITIONS OF THIS LICENSE AGREEMENT, YOU ALSO REPRESENT AND WARRANT THAT END-USER IS DULY AUTHORIZED TO ACCEPT THE TERMS AND CONDITIONS OF THIS AGREEMENT ON BEHALF OF END-USER AS YOUR EMPLOYER. 
+
+1.	Software License Agreement
+This is a legal agreement between the end user (“End-User”) of the Software and the GE Healthcare group company ("GEHC") supplying the Software to End-User.
+2.	Grant of License for Software
+GEHC grants End-User a non-exclusive right to use the Software including its source code without restriction, as well as to copy, modify, merge, publish and distribute, copies of the Software including its source code, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+End-User must reproduce proprietary notices as well as inclusion of these license terms on any copies of the Software.
+The Software shall only be used together with products as provided and/or specified by GEHC. Any publication, distribution or other transmission of the Software must be free of charge and on a non-commercial basis. 
+3.	Copyright
+The Software is owned/exclusively licensed by GEHC and is protected by copyright laws of United States and other countries and by international treaty provisions and title to any intellectual property rights to the Software shall not pass to End-User .
+4.	Disclaimer/No Warranties
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT WILL GEHC OR ITS SUPPLIERS BE LIABLE (WHETHER IN TORT OR CONTRACT INCLUDING BREACH OF WARRANTY) FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY WHATSOEVER WHETHER DIRECT OR INDIRECT (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS, LOSS OF DATA OR OTHER PECUNIARY LOSS) ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OF OR INABILITY TO USE THE SOFTWARE, EVEN IF GEHC HAS BEEN ADVISED OF THE POSSIBILITIES OF SUCH DAMAGES. ANY OTHER LIABILITY ARISING UNDER OR IN CONNECTION WITH THIS LICENSE AGREEMENT SHALL BE LIMITED TO DIRECT DAMAGES UP TO AN AMOUNT EQUAL TO THE AMOUNT PAID TO GEHC UNDER THIS LICENSE AGREEMENT. END-USER SHALL INDEMNIFY AND HOLD HARMLESS GEHC IN RESPECT OF ANY CLAIM OR ALLEGATION OF INTRINGEMENT RELATING TO ANY DESIGN PROPOSED BY THE END-USER OR METHODS UTILIZED BY END-USER WHEN USING THE SOFTWARE.
+5.	General Provisions
+End-User undertakes to comply with all applicable export/re-export control laws and regulations regarding the use of the Software to assure that neither the Software, nor any direct product thereof, are exported or used, directly or indirectly, in violation of applicable laws.  
+The Agreement shall be governed by and construed in accordance with the substantive laws of the country where GEHC’s principal or registered office is situated and the parties hereby submit to the non-exclusive jurisdiction of the courts of that country.
+
+Updated December 2014
+
+END
+ 
+
