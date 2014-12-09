@@ -31,7 +31,7 @@
 # Usage:
 # 1) Generate massive points list .pts file as required:
 #       Maybe use Dan Whites's morePoints.py python script for that. 
-#	All z positons should be set to 0.00
+#	All z positions should be set to 0.00
 # 2) Put plate in microscope, and load your point list file, .pts. 
 # 3) Go to a good point somewhere in the middle of the plate
 #	and set z stage position to zero
