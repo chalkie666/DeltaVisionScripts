@@ -1,6 +1,12 @@
 # Created by Dan White 6 aug 2013 Buchholz lab Dresden
 # Experiment Macro Name: Plate many points time UF hack.
 
+# this script is superseded by the version 2 script in this directory. 
+
+# Copyright (C) 2014 GE Healthcare
+#  
+# License: See LICENSE.txt file 
+
 # This macro is to work around the problem that we can't do a
 # time series with several panels per well using plate mode.
 # Why not? Because panels use the time dimension to store themselves in DV files!
