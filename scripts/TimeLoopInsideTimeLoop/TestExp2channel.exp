@@ -1,6 +1,10 @@
 # Created by DeltaVision Experiment Designer (version: 5.5.1 Release 3)
 # Experiment Macro Name: TestExp5
 
+# Copyright (C) 2014 GE Healthcare
+#  
+# License: See LICENSE.txt file 
+
 # Open image files for Point Visiting
 OPF2 all
 
