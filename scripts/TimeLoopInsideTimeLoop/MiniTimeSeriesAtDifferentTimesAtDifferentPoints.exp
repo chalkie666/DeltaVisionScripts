@@ -1,0 +1,133 @@
+# Created by DeltaVision Experiment Designer (version: 6.5.2 Release RC1)
+# Experiment Macro Name: Resolve3D
+
+#Ronald_v3.exp
+
+# Experiment macro to do 
+# time of imaging dependent on point position: Why?
+# So we can have a little time series at differnt points, 
+# but the point determines what time the images are taken. 
+
+# Enable focus maintenance
+ULTFOCUS Enable
+
+# Open image files for Point Visiting
+OPF2 all
+
+# Open image files for Reference Image
+OPF_REF 1
+
+# Time-lapse loop.
+FIRST_T
+DO 4
+
+  FIRSTPOINT
+
+  # Do UltimateFocus maintenance for this first point
+  ULTFOCUS Maintain,0.100,1
+
+  # Point visiting loop - I am using points to declare which time point
+  # it should be imaged at. THere are 4 time points needed.
+  # So I need 4 double IF-ENDIF conditional blocks.
+  # In each bock a little time series will run in a DO-ENDDO loop
+  # doing a 1 colour z stack with the fast scan command.
+ 
+  DO PointList
+
+    # Conditional Processing Actions (T=Time Point, P=Visited Point)
+    IF T=1
+      # For internal point visit loop in Periodic Processing
+      IF P=1
+        DO 5
+          SCANZWT 2,1,2,15,-0.2000,1,8.0000,1,0,1,4,0.300000,1,0,17
+          
+          # Update all open file headers
+          WRT_HDRS
+          # Time Lapse wait. Will wait 5.000 seconds
+          # from the beginning of the current time point
+          TLAPSE 5.000
+        ENDDO
+      # Acquire a reference image (mid-stack)
+      REF_IMG 0.200000,POL,POL,2%,18,8.000,0.000,-0.000
+      ENDIF
+    ENDIF
+
+    # Conditional Processing Actions (T=Time Point, P=Visited Point)
+    IF T=2
+      # For internal point visit loop in Periodic Processing
+      IF P=2
+        DO 5
+          SCANZWT 2,1,2,15,-0.2000,1,8.0000,1,0,1,4,0.300000,1,0,17
+          
+          # Update all open file headers
+          WRT_HDRS
+          # Time Lapse wait. Will wait 5.000 seconds
+          # from the beginning of the current time point
+          TLAPSE 5.000
+        ENDDO
+      # Acquire a reference image (mid-stack)
+      REF_IMG 0.200000,POL,POL,2%,18,8.000,0.000,-0.000
+      ENDIF
+    ENDIF
+
+    # Conditional Processing Actions (T=Time Point, P=Visited Point)
+    IF T=3
+      # For internal point visit loop in Periodic Processing
+      IF P=3
+        DO 5
+          SCANZWT 2,1,2,15,-0.2000,1,8.0000,1,0,1,4,0.300000,1,0,17
+          
+          # Update all open file headers
+          WRT_HDRS
+          # Time Lapse wait. Will wait 5.000 seconds
+          # from the beginning of the current time point
+          TLAPSE 5.000
+        ENDDO
+      # Acquire a reference image (mid-stack)
+      REF_IMG 0.200000,POL,POL,2%,18,8.000,0.000,-0.000
+      ENDIF
+    ENDIF
+
+    # Conditional Processing Actions (T=Time Point, P=Visited Point)
+    IF T=4
+      # For internal point visit loop in Periodic Processing
+      IF P=4
+        DO 5
+          SCANZWT 2,1,2,15,-0.2000,1,8.0000,1,0,1,4,0.300000,1,0,17
+          
+          # Update all open file headers
+          WRT_HDRS
+          # Time Lapse wait. Will wait 5.000 seconds
+          # from the beginning of the current time point
+          TLAPSE 5.000
+        ENDDO
+      # Acquire a reference image (mid-stack)
+      REF_IMG 0.200000,POL,POL,2%,18,8.000,0.000,-0.000
+      ENDIF
+    ENDIF
+
+    NEXTPOINT
+
+    # Do UltimateFocus maintenance for the next point
+    ULTFOCUS Maintain,0.100,1
+  ENDDO
+
+  # Update all open file headers
+  WRT_HDRS
+
+  # Time Lapse wait. Will wait 1800.000 seconds
+  # from the beginning of the current time point
+  TLAPSE 60.000
+  NEXT_T
+ENDDO
+
+# Return to the first point in point visit list
+FIRSTPOINT
+
+# Close image file(s) 
+CLF_REF
+CLF2
+BEEP
+
+#
+#
