@@ -30,12 +30,13 @@ from pycudadecon import decon, make_otf
 from skimage.external.tifffile import imsave
 
 # set input a and output file paths
-image_path = 'redcell400x400x25.tif'
-psf_path = 'psfbig.tif'
+image_path = 'C1-YeastTNA1_1516_conv_RG_26oC_003.tif'
+psf_path = 'gpsf_3D_1514_a3_001_WF-sub105.tif'
 otfOutPath = 'otf.tif'
 
 # do the deconvolution on GPU
-result = decon(image_path, psf_path, n_iters=10)
+numIters = 30
+result = decon(image_path, psf_path, n_iters=numIters)
 print("result data type is " + str(result.dtype))
 print('results numpy array shape is ')
 print(result.shape)
@@ -43,7 +44,7 @@ print(result.shape)
 # save the result,
 print('Saving result image TIFF file')
 # using skimage.external.tifffile.imsave
-imsave('result.tif', result) #, imagej)
+imsave(('result' + str(numIters) + 'iterations.tif'), result) #, imagej)
 
 # save otf tiff file from PSF image tiff.
 print('making otf')

@@ -22,18 +22,19 @@ from flowdec import data as fd_data
 from flowdec import restoration as fd_restoration
 
 # Load test image from same dir as we execute in
-raw = imread('redcell400x400x25.tif')
+raw = imread('C1-YeastTNA1_1516_conv_RG_26oC_003.tif')
 
 # Load psf kernel image from same dir
-kernel = imread('psfbig.tif')
+kernel = imread('gpsf_3D_1514_a3_001_WF-sub105.tif')
 
 # Run the deconvolution process and note that deconvolution initialization is best kept separate from 
 # execution since the "initialize" operation corresponds to creating a TensorFlow graph, which is a 
 # relatively expensive operation and should not be repeated across multiple executions
+n_iter = 500
 algo = fd_restoration.RichardsonLucyDeconvolver(raw.ndim).initialize()
-res = algo.run(fd_data.Acquisition(data=raw, kernel=kernel), niter=100).data
+res = algo.run(fd_data.Acquisition(data=raw, kernel=kernel), niter=n_iter).data
 
 # save the result,
 print('Saving result image TIFF file')
 # using skimage.external.tifffile.imsave
-imsave('result.tif', res)
+imsave(('result' + str(n_iter) + 'iterations.tif'), res)
