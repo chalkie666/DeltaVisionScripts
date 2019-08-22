@@ -13,3 +13,5 @@ scripts/Deconvolution/zStacks/YeastTNA1_1516_conv_RG_26oC_003.dv
 scripts/Deconvolution/zStacks/YeastTNA1_1516_conv_RG_26oC_003_ALX.dv
 scripts/Deconvolution/zStacks/YeastTNA1_1516_conv_RG_26oC_003_D3D.dv
 scripts/Deconvolution/zStacks/YeastTNA1_1516_conv_RG_26oC_003_D3D_ALX.dv
+*.tif
+*.dv
