@@ -35,7 +35,7 @@ psf_path = 'gpsf_3D_1514_a3_001_WF-sub105.tif'
 otfOutPath = 'otf.tif'
 
 # do the deconvolution on GPU
-numIters = 30
+numIters = 15
 result = decon(image_path, psf_path, n_iters=numIters)
 print("result data type is " + str(result.dtype))
 print('results numpy array shape is ')
