@@ -1,21 +1,31 @@
-"""
-Dan White March 2019
-simpleFlowDecTest.py 
-because the example python script isnt working on my setup
-try this as a simpler more direct test - which seems to work.
+# Dan White March 2019-2020
+# simpleFlowDecTest.py 
+# because the example python script isnt working on my setup
+# try this as a simpler more direct test - which seems to work.
 
-flowdec anaconda package install/update requirements for anaconda on win10 64 bit:
+# flowdec pip package install/update requirements for anaconda on win10 64 bit:
 
-install the pip package for flowdec with GPU support as per the flowdec install instructions
+# install the pip package for flowdec with GPU support as per the flowdec install instructions:
+# github.com/hammerlab/flowdec/blob/master/README.md   but......
 
-as of march 2019 numpy and scikit-image need updating to newer versions using conda
-	conda install -c anaconda numpy=1.16.0
-	conda install -c anaconda scikit-image=0.14.2
-as does tensor flow gpu  - the version installed by flowdec have a dll load error. 
-watch out for cuda / tensorflow versions compatabiliries. 
-	conda install -c anaconda tensorflow-gpu    
-I got a load dll error before this install, but tensor flow updated to v1.13 tested ok
-"""
+
+# 22 april 2020 - what works today :
+# flowdec uses tensorflow which on nvidda GPU uses CUDA so need to install the stuff here
+# https://www.tensorflow.org/install/gpu   but.....those instructionsd seem to install incompatible stuff... so try
+# things were installed in this order and the script works and used the GPU
+#cuda toolkit 10.0 
+#cudnn-10.0 7.6.34.38 installed into C:/tools/
+#pip install flowdec
+#     not pip install flowdec[tf_gpu  
+# ommitting the tf_gpu option, so it leaves tensorflow-gpu uninstalled, becasue by default
+# by now it installs v2.1 of tensorflow which doesnt seem to work for flowdec? 
+# pip install tensorflow-gpu==1.14.0 (2.0 might work...? maybe needs higher cuda version)
+# Need windows env variables pointing to cuda stuff:  CUDA and CUPTI and another related library cuDNN
+# SET PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\bin;%PATH%
+# SET PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\extras\CUPTI\libx64;%PATH%
+# SET PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0\include;%PATH%
+# SET PATH=C:\tools\cuda\bin;%PATH%
+# some of these don't seem to be sticky???
 
 from skimage.external.tifffile import imsave, imread
 from flowdec import data as fd_data
@@ -32,7 +42,7 @@ kernel = imread(PSF)
 # Run the deconvolution process and note that deconvolution initialization is best kept separate from 
 # execution since the "initialize" operation corresponds to creating a TensorFlow graph, which is a 
 # relatively expensive operation and should not be repeated across multiple executions
-n_iter = 300
+n_iter = 250
 algo = fd_restoration.RichardsonLucyDeconvolver(raw.ndim).initialize()
 res = algo.run(fd_data.Acquisition(data=raw, kernel=kernel), niter=n_iter).data
 
