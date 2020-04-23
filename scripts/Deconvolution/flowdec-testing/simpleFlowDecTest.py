@@ -45,14 +45,26 @@ PSF = PSFbigger
 print (PSF)
 kernel = imread(PSF)
 
+#base number of iterations - RL converges slowly so need tens of iterations or maybe hundreds. 
+n_iter = 20
+
 # Run the deconvolution process and note that deconvolution initialization is best kept separate from 
 # execution since the "initialize" operation corresponds to creating a TensorFlow graph, which is a 
 # relatively expensive operation and should not be repeated across multiple executions
-n_iter = 250
-algo = fd_restoration.RichardsonLucyDeconvolver(raw.ndim).initialize()
-res = algo.run(fd_data.Acquisition(data=raw, kernel=kernel), niter=n_iter).data
 
-# save the result,
-print('Saving result image TIFF file')
-# using skimage.external.tifffile.imsave
-imsave(('result' + inputImg + PSF + str(n_iter) + 'iterations.tif'), res)
+# initialize the TF graph for the deconvolution settings in use for certain sized input and psf images
+# works for doing the same input data multiple times with different iteractions
+# should work for doing different input data with same sizes of image and psf, 
+# eg a time series split into tiff 1 file per time point???? 
+algo = fd_restoration.RichardsonLucyDeconvolver(raw.ndim).initialize()
+
+# run the deconvolution itself
+# in a loop making diffrent numbers of iterations, multiples of base value of n_iter
+multiRunFactor = 5
+for i in range(1, multiRunFactor+1):
+  res = algo.run(fd_data.Acquisition(data=raw, kernel=kernel), niter=(n_iter*i)).data
+  # save the result # using skimage.external.tifffile.imsave
+  imsave(('result' + inputImg + PSF + str(n_iter*i) + 'iterations.tif'), res)
+  print('Saved result image TIFF file')
+
+print('Done')
