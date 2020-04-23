@@ -27,9 +27,17 @@
 # SET PATH=C:\tools\cuda\bin;%PATH%
 # some of these don't seem to be sticky???
 
+import time
+import sys
+
+#send output to a log file
+sys.stdout = open('FlowDecLog.txt', 'w')
+
+startImports = time.process_time()   
 from skimage.external.tifffile import imsave, imread
 from flowdec import data as fd_data
 from flowdec import restoration as fd_restoration
+importsTime = (time.process_time() - startImports)
 
 # Load test image from same dir as we execute in
 inputImg = 'C1-YeastTNA1_1516_conv_RG_26oC_003sub100.tif'
@@ -46,7 +54,7 @@ print (PSF)
 kernel = imread(PSF)
 
 #base number of iterations - RL converges slowly so need tens of iterations or maybe hundreds. 
-n_iter = 20
+base_iter = 10
 
 # Run the deconvolution process and note that deconvolution initialization is best kept separate from 
 # execution since the "initialize" operation corresponds to creating a TensorFlow graph, which is a 
@@ -56,15 +64,37 @@ n_iter = 20
 # works for doing the same input data multiple times with different iteractions
 # should work for doing different input data with same sizes of image and psf, 
 # eg a time series split into tiff 1 file per time point???? 
+startAlgoinit = time.process_time()   
 algo = fd_restoration.RichardsonLucyDeconvolver(raw.ndim).initialize()
+TFinitTime = (time.process_time() - startAlgoinit)
+
 
 # run the deconvolution itself
 # in a loop making diffrent numbers of iterations, multiples of base value of n_iter
-multiRunFactor = 5
+multiRunFactor = 15
+timingListIter = []
+timingListTime = []
 for i in range(1, multiRunFactor+1):
-  res = algo.run(fd_data.Acquisition(data=raw, kernel=kernel), niter=(n_iter*i)).data
+  niter = (base_iter*i)
+  # start measuring time
+  startDec = time.process_time()
+  res = algo.run(fd_data.Acquisition(data=raw, kernel=kernel), niter=(niter)).data
+  # measure time here includes only the deconvolution, no file saving
+  DecTime = (time.process_time() - startDec)
   # save the result # using skimage.external.tifffile.imsave
-  imsave(('result' + inputImg + PSF + str(n_iter*i) + 'iterations.tif'), res)
-  print('Saved result image TIFF file')
+  resultFileName = ('result' + inputImg + PSF + str(niter) + 'iterations.tif')
+  imsave(resultFileName, res)
+  # measure time here includes file saving
+  #DecTime = (time.process_time() - startDec)
+  print('Saved result image TIFF file' + resultFileName)
+  print(str(DecTime) + ' is how many sec ' + str(niter) + ' iterations took.')
+  timingListIter.append(niter)
+  timingListTime.append(DecTime)
 
+#benchmarking data output
+print (str(importsTime) + ' seconds to import flowdec, TF and CUDA libs etc.')
+print (str(TFinitTime) + ' sec is the tensorFlow initialisation time')
+print ('Pairs of values of iterations done vs time in seconds')
+print (timingListIter)
+print (timingListTime)
 print('Done')

@@ -4,3 +4,7 @@
 .vs/slnx.sqlite
 
 .vs/VSWorkspaceState.json
+scripts/Deconvolution/flowdec-testing/FlowDecLog.txt
+scripts/Deconvolution/flowdec-testing/FlowDecLogIters.csv
+scripts/Deconvolution/flowdec-testing/~$iterstimeplot.xlsx
+scripts/Deconvolution/flowdec-testing/iterstimeplot.xlsx
