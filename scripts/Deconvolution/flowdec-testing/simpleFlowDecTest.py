@@ -32,11 +32,17 @@ from flowdec import data as fd_data
 from flowdec import restoration as fd_restoration
 
 # Load test image from same dir as we execute in
-inputImg = 'C1-YeastTNA1_1516_conv_RG_26oC_003_256xcropSub100.tif'
+inputImg = 'C1-YeastTNA1_1516_conv_RG_26oC_003sub100.tif'
 raw = imread(inputImg)
 
 # Load psf kernel image from same dir
-PSF = 'gpsf_3D_1514_a3_001_WF-sub105crop64.tif'
+# A cropped 64x64 PSF to reduce memory use, 21 z slices, 0.125 nm spacing in z
+PSFsmall = 'gpsf_3D_1514_a3_001_WF-sub105crop64.tif'
+# The same PSF but not cropped so much, 128x128, probably uses much more memory.  
+PSFbigger = 'gpsf_3D_1514_a3_001_WF-sub105crop128.tif'
+# choose the psf to use from the options above. 
+PSF = PSFbigger
+print (PSF)
 kernel = imread(PSF)
 
 # Run the deconvolution process and note that deconvolution initialization is best kept separate from 
